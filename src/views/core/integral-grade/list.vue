@@ -42,20 +42,22 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        integralGradeApi.removeById(id).then(response => {
+        return integralGradeApi.removeById(id)
+      }).then(response => {
+        _that.$message({
+          showClose: true,
+          message: response.message,
+          type: 'success'
+        })
+        // 删除成功后 刷新页面
+        _that.fetchData()
+      }).catch(error => {
+        if (error === 'cancel') {
           _that.$message({
-            showClose: true,
-            message: response.message,
-            type: 'success'
+            type: 'info',
+            message: '已取消删除'
           })
-          // 删除成功后 刷新页面
-          _that.fetchData()
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
+        }
       })
     }
   }

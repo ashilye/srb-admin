@@ -12,6 +12,13 @@ export default {
       url: '/admin/core/integralGrade/remove/' + id,
       method: 'delete'
     })
+  },
+  save(integralGrade) {
+    return request({
+      url: '/admin/core/integralGrade/save',
+      method: 'post',
+      dara: integralGrade
+    })
   }
 }
 

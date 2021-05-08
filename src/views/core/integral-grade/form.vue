@@ -35,14 +35,28 @@ export default {
       integralGrade: {}
     }
   },
+  created() {
+    // 当路由中存在id时 就是回显表单
+    if (this.$route.params.id) {
+      this.fetchById(this.$route.params.id)
+    }
+  },
   methods: {
+    fetchById(id) {
+      integralGradeApi.getById(id).then(response => {
+        this.integralGrade = response.data.record
+      })
+    },
     // 保存或更新
     saveOrUpdate() {
       this.saveBtnDisabled = true
-      // 新增
-      this.saveData()
-      // 更新
-      this.updateData()
+      if (this.$route.params.id) {
+        // 更新
+        this.updateData()
+      } else {
+        // 新增
+        this.saveData()
+      }
     },
     saveData() {
       integralGradeApi.save(this.integralGrade).then(response => {
@@ -51,9 +65,18 @@ export default {
           message: response.message
         })
       })
+      // 保存成功后 进行路由跳转
+      this.$router.push('/core/integral-grade/list')
     },
     updateData() {
-
+      integralGradeApi.updateById(this.integralGrade).then(response => {
+        this.$message({
+          type: 'success',
+          message: response.message
+        })
+      })
+      // 更新成功后 进行路由跳转
+      this.$router.push('/core/integral-grade/list')
     }
   }
 }

@@ -20,6 +20,21 @@ export default {
       method: 'post',
       data: integralGrade
     })
+  },
+  getById(id) {
+    console.log('getById', id)
+    return request({
+      url: '/admin/core/integralGrade/get/' + id,
+      method: 'get'
+    })
+  },
+  updateById(integralGrade) {
+    console.log('updateById', integralGrade)
+    return request({
+      url: '/admin/core/integralGrade/update',
+      method: 'put',
+      data: integralGrade
+    })
   }
 }
 

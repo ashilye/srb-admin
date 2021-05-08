@@ -14,10 +14,11 @@ export default {
     })
   },
   save(integralGrade) {
+    console.log('save', integralGrade)
     return request({
       url: '/admin/core/integralGrade/save',
       method: 'post',
-      dara: integralGrade
+      data: integralGrade
     })
   }
 }
